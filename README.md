@@ -7,9 +7,11 @@ What's working?
 - A view that shows list of post from our database
 - A single page post for each posts
 - A view to add/edit post (only admin can do this)
+- All 'follow us' icons redirect to my instagram account
 
 What's not working:
 - Comment box has not been implemented
 - User authentication
 - Category not yet added
 - no share post buttons yet
+- subscription box
