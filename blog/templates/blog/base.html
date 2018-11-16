@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DjangogirlsTutorials: First Blog with Django</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'font/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper darken-4 white-text">
+                <div class="container">
+                  <a href="{% url 'post_list' %}" class="left brand-logo">DjangoBLOG</a>
+
+                  <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!--<li><a href="#">Register</a></li>-->
+                    <!--<li><a href="#">Sign in</a></li>-->
+                      {% if user.is_authenticated %}
+                          <li>
+                              <div class="left"><a href="{% url 'new_post' %}" class="btn waves-effect waves-light deep-green lighten-3 btn-small">Add New Post</a></div>
+                              <div class="clearfix"></div>
+                          </li>
+                      {% endif %}
+                  </ul>
+                </div>
+
+                <div class="section no-pad-bot" id="index-banner">
+                    <div style="margin-top: 120px"></div>
+                    <div class="container">
+                        <h4 class="header center">Welcome, DjangoBLOG </h4>
+                        <p class="intro-text center">A simple blog made off Python Django as part of my training exercise...</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div style="margin: 60px"></div>
+
+    <main>
+        <div class="row">
+            <div class="">
+                <div class="col s12 m8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="subscribe-box mb-20 white z-depth-1">
+                        <div class="sb-text">
+                            <h5>Follow Us</h5>
+                            <p>Receive our newsletter to stay on top of Django latest posts.</p>
+                        </div>
+                        <div class="sb-form">
+                            <form action="#" method="POST">
+                                <div class="input-field">
+                                    <input type="text" id="email" class="validate">
+                                    <label class="active" for="email">Email addresss...</label>
+                                </div>
+
+                                <button type="submit" name="action" class="btn btn-large sub-button waves-effect waves-light">Subscribe</button>
+                            </form>
+                        </div>
+                    </div> <!-- /.subscription form -->
+                    <div class="follow-us-box mb-20 white z-depth-1">
+                        <div class="follow-text">
+                            <h5>Follow Us</h5>
+                        </div>
+                        <div class="follow-icons">
+                           <a href="https://instagram.com/snowpy" class="blue-text darken-4">
+                                <i class="ion-social-facebook" style="font-size: 24px; margin-right: 12px;"></i>
+                           </a>
+                           <a href="https://instagram.com/snowpy" class="red-text">
+                               <i class="ion-social-twitter" style="font-size: 24px; margin-right: 12px;"></i>
+                           </a>
+                           <a href="https://instagram.com/snowpy" class="red-text">
+                                <i class="ion-social-instagram" style="font-size: 24px; margin-right: 12px;"></i>
+                           </a>
+                           <a href="https://instagram.com/snowpy" class="red-text">
+                                <i class="ion-social-reddit" style="font-size: 24px; margin-right: 12px;"></i>
+                           </a>
+                            <a href="https://instagram.com/snowpy" class="black-text">
+                                <i class="ion-social-github" style="font-size: 24px; margin-right: 12px;"></i>
+                           </a>
+                        </div>
+                    </div> <!-- /.follow us -->
+                    <div class="popular-posts mb-20 white z-depth-1">
+                        <div class="popular-text">
+                            <h5>Popular Posts</h5>
+                        </div>
+
+                        {% for post in posts %}
+                        <div class="p-posts black-text">
+                            <ul>
+                                <li>
+                                    <h5 class="black-text" style="text-transform: uppercase">
+                                        <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }} </a>
+                                    </h5>
+                                    <p>{{ post.text|striptags|truncatewords:4 }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div><!-- /.popular posts --> 
+                    <div class="categories mb-20 white z-depth-1">
+                        <div class="cat-title">
+                            <h5>categories</h5>
+                        </div>
+
+                        {% for category in categories %}
+                            <div class="cats black-text">
+                                <ul>
+                                    <li>
+                                        <span class="for-cats"><i class="tiny material-icons">
+                                            local_offer</i> {{ category.title }}
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div><!-- /.categories --> 
+                </div>
+            </div>
+        </div><!-- /.first row -->
+    </main> <!-- /.main content -->
+
+    <footer class="grey darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 center grey-text lighten-4" style="margin-top: 50px; margin-bottom: 10px;">
+                    <a href="https://github.com/ayodejipy">
+                        <i class="ion-social-github" style="font-size: 24px; margin-right: 12px;"></i>
+                    </a>
+                    <a href="https://facebook.com/Jeggs.Tony.1">
+                        <i class="ion-social-facebook" style="font-size: 24px; margin-right: 12px;"></i>
+                    </a>
+                    <a href="https://instagram.com/snowpy">
+                        <i class="ion-social-instagram" style="font-size: 24px; margin-right: 12px;"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer-copyright darken-3">
+          <div class="container center" style="color: #d5d4d9;">
+            <span style="font-weight: 800;"> Made with <span style="color: red; font-size: 22px"> &hearts;</span></span>
+          </div>
+        </div>
+
+    </footer><!-- /.footer -->
+    <!--JAVASCRIPT-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
